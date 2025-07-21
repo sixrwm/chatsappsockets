@@ -35,10 +35,10 @@ io.on('connection', (socket) => {
 
   // Typing indicator event
   socket.on('typing', ({ chatId, userId, isTyping }) => {
-    // Broadcast typing status to others in the room
-    console.log(`User typing: ${userId}`);
-    socket.to(chatId).emit('typing', { userId, isTyping });
+    // Broadcast typing status *including* the chatId
+    socket.to(chatId).emit('typing', { chatId, userId, isTyping });
   });
+  
 
   // Leaving a room (optional)
   socket.on('leaveRoom', ({ chatId, userId }) => {
